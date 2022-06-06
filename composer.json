@@ -19,7 +19,8 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.1"
+        "php": ">=8.1",
+        "symfony/console": "^6.1"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.5",
@@ -50,18 +51,18 @@
     "scripts": {
         "post-install-cmd": [],
         "post-update-cmd": [],
-        "test": "phpunit --color=always",
+        "test": "phpunit --colors=always",
         "coverage:text": [
             "@putenv XDEBUG_MODE=coverage",
-            "phpunit --color=always --coverage-text"
+            "phpunit --colors=always --coverage-text"
         ],
         "coverage:clover": [
             "@putenv XDEBUG_MODE=coverage",
-            "phpunit --color=always --coverage-clover=coverage.xml"
+            "phpunit --colors=always --coverage-clover=coverage.xml"
         ],
         "coverage:html": [
             "@putenv XDEBUG_MODE=coverage",
-            "phpunit --color=always --coverage-html=coverage"
+            "phpunit --colors=always --coverage-html=coverage"
         ],
         "coverage:check": [
             "@coverage:clover",
