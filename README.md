@@ -12,7 +12,13 @@ Console script to check code coverage using Clover reports.
 
 ## Usage
 
-Please check the [Documentation](https://github.com/thingston/coverage-check/wiki).
+From your project root run:
+
+`php vendor/bin/phpcov /path/to/coverage.xml 99`
+
+Or just this one to get more help:
+
+`php vendor/bin/phpcov --help`
 
 ## Testing
 
