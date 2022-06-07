@@ -8,7 +8,7 @@ Console script to check code coverage using Clover reports.
 
 ## Instalation
 
-`composer require thingston/coverage-check`
+`composer require --dev thingston/coverage-check`
 
 ## Usage
 
