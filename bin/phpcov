@@ -6,7 +6,7 @@ declare (strict_types=1);
 if (is_readable(__DIR__ . '/../vendor/autoload.php')) {
     require __DIR__ . '/../vendor/autoload.php';
 } elseif (is_readable(__DIR__ . '/../../../autoload.php')) {
-    require __DIR__ . '/../../autoload.php';
+    require __DIR__ . '/../../../autoload.php';
 } elseif (is_readable(__DIR__ . '/../../autoload.php')) {
     require __DIR__ . '/../../autoload.php';
 } else {
