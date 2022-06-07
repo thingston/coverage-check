@@ -38,8 +38,5 @@ jobs:
     - name: Run static analysis script
       run: composer run-script analyze
 
-    - name: Run unit tests script
-      run: composer run-script coverage:clover
-
     - name: Check code coverage
-      run: php .github/check_coverage.php coverage.xml
+      run: composer run-script coverage:check
