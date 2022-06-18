@@ -28,7 +28,7 @@ jobs:
       run: |
         git fetch --prune --unshallow
         BRANCH=$(git rev-parse --abbrev-ref HEAD)
-        VERSION=$(git describe --exact-match)
+        VERSION=$(git describe --tags --abbrev=0)
         a=( ${VERSION//./ } )
         ((a[2]++))
         UPDATE_BRANCH="update/$BRANCH-${a[0]}-${a[1]}-${a[2]}"
