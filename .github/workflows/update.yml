@@ -26,6 +26,7 @@ jobs:
         
     - name: Create update branch
       run: |
+        git fetch --prune --unshallow
         BRANCH=$(git rev-parse --abbrev-ref HEAD)
         VERSION=$(git describe --exact-match)
         a=( ${VERSION//./ } )
