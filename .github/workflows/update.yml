@@ -28,10 +28,12 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Update dependencies
-      run: composer update --prefer-dist --no-progress
+      run: |
+        composer update --prefer-dist --no-progress
+        DIFF=$(git --no-pager diff)
 
     - name: Commit changes
-      if: git --no-pager diff
+      if: $DIFF
       run: |
         USER_NAME=$(git log -1 --pretty=format:'%an')
         USER_EMAIL=$(git log -1 --pretty=format:'%ae')
