@@ -16,17 +16,13 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Setup Git
-      run: |
-        apt-get install -y git
-        git --version
-        
-    - name: Config Git user
       env:
         USER_NAME: $(git log -1 --pretty=format:'%an')
         USER_EMAIL: $(git log -1 --pretty=format:'%ae')
         BRANCH: $(git rev-parse --abbrev-ref HEAD)
         VERSION: $(git describe --exact-match)
       run: |
+        git --version
         git config --global user.name "$USER_NAME"
         git config --global user.email "$USER_EMAIL"
         echo "Operating as $USER_NAME <$USER_EMAIL>"
