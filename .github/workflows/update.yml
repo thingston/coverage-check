@@ -1,0 +1,22 @@
+name: Update Composer
+
+on:
+  workflow_dispatch:
+    branches: '**'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Git
+      run: |
+        apt install -y git
+        git --version
+        
