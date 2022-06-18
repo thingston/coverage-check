@@ -15,25 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Setup Git
-      run: |
-        git --version
-        USER_NAME=$(git log -1 --pretty=format:'%an')
-        USER_EMAIL=$(git log -1 --pretty=format:'%ae')
-        git config --global user.name "$USER_NAME"
-        git config --global user.email "$USER_EMAIL"
-        echo "Operating as $USER_NAME <$USER_EMAIL>"
-        
-    - name: Create update branch
-      run: |
-        git fetch --prune --unshallow
-        BRANCH=$(git rev-parse --abbrev-ref HEAD)
-        VERSION=$(git describe --tags --abbrev=0)
-        a=( ${VERSION//./ } )
-        ((a[2]++))
-        UPDATE_BRANCH="update/$BRANCH-${a[0]}-${a[1]}-${a[2]}"
-        git checkout -b $UPDATE_BRANCH
-
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
 
@@ -46,6 +27,22 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
-    - name: Install dependencies
+    - name: Update dependencies
       run: composer update --prefer-dist --no-progress
+
+    - name: Commit changes
+      if: `git --no-pager diff`
+      run: |
+        USER_NAME=$(git log -1 --pretty=format:'%an')
+        USER_EMAIL=$(git log -1 --pretty=format:'%ae')
+        git config --global user.name "$USER_NAME"
+        git config --global user.email "$USER_EMAIL"
+        git fetch --prune --unshallow
+        VERSION=$(git describe --tags --abbrev=0)
+        a=( ${VERSION//./ } )
+        ((a[2]++))
+        TAG="${a[0]}.${a[1]}.${a[2]}"
+        git commit -am "Update dependencies ($TAG)"
+        git tag -am $TAG
+        git push && git push --tags
 
