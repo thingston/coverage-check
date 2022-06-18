@@ -24,3 +24,27 @@ jobs:
         git config --global user.email "$USER_EMAIL"
         echo "Operating as $USER_NAME <$USER_EMAIL>"
         
+    - name: Create update branch
+      run: |
+        BRANCH=$(git rev-parse --abbrev-ref HEAD)
+        VERSION=$(git describe --exact-match)
+        a=( ${VERSION//./ } )
+        ((a[2]++))
+        UPDATE_BRANCH="update/$BRANCH-${a[0]}-${a[1]}-${a[2]}"
+        git checkout -b $UPDATE_BRANCH
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      run: composer update --prefer-dist --no-progress
+
