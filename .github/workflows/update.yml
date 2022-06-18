@@ -31,7 +31,7 @@ jobs:
       run: composer update --prefer-dist --no-progress
 
     - name: Commit changes
-      if: `git --no-pager diff`
+      if: git --no-pager diff
       run: |
         USER_NAME=$(git log -1 --pretty=format:'%an')
         USER_EMAIL=$(git log -1 --pretty=format:'%ae')
