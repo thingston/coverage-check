@@ -2,7 +2,7 @@ name: Update Composer
 
 on:
   schedule:
-    - cron: '0 16 * * *'
+    - cron: '33 3 * * *'
 
 permissions:
   contents: write
