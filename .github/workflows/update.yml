@@ -30,11 +30,12 @@ jobs:
     - name: Update dependencies
       run: |
         composer update --prefer-dist --no-progress
-        DIFF=$(git --no-pager diff)
 
     - name: Commit changes
-      if: $DIFF
       run: |
+        if ! `git --no-pager diff` ; then
+          exit 0
+        fi
         USER_NAME=$(git log -1 --pretty=format:'%an')
         USER_EMAIL=$(git log -1 --pretty=format:'%ae')
         git config --global user.name "$USER_NAME"
