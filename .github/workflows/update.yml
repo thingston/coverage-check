@@ -47,7 +47,8 @@ jobs:
         a=( ${VERSION//./ } )
         ((a[2]++))
         TAG="${a[0]}.${a[1]}.${a[2]}"
-        git commit -am "Update dependencies ($TAG)"
-        git tag -am $TAG
-        git push && git push --tags
+        git commit -a -m "Update dependencies ($TAG)"
+        git tag -a $TAG -m $TAG
+        git push
+        git push --tags
 
