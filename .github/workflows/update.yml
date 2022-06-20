@@ -33,7 +33,9 @@ jobs:
 
     - name: Commit changes
       run: |
-        if ! `git --no-pager diff` ; then
+        DIFF=$(git --no-pager diff)
+        if [ ! $DIFF ] ; then
+          echo "Nothing to commit."
           exit 0
         fi
         USER_NAME=$(git log -1 --pretty=format:'%an')
