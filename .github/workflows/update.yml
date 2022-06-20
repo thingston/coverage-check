@@ -1,6 +1,9 @@
 name: Update Composer
 
 on:
+  schedule:
+    cron: '0 16 * * *'
+    branches: master
   workflow_dispatch:
     branches: '**'
 
