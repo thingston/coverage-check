@@ -45,13 +45,16 @@ jobs:
         USER_EMAIL=$(git log -1 --pretty=format:'%ae')
         git config --global user.name "$USER_NAME"
         git config --global user.email "$USER_EMAIL"
+        echo "Operating as $USER_NAME <$USER_EMAIL>"
         git fetch --prune --unshallow
         VERSION=$(git describe --tags --abbrev=0)
+        echo "Current version is $VERSION"
         a=( ${VERSION//./ } )
         ((a[2]++))
         TAG="${a[0]}.${a[1]}.${a[2]}"
+        echo "Updating to version $TAG"
         git commit -a -m "Update dependencies ($TAG)"
-        git tag -a $TAG -m $TAG
         git push
+        git tag -a $TAG -m $TAG
         git push --tags
-
+        echo "Done!"
